@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pokémon Info Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+      <form class="search-bar" action="#" method="get">
+        <input class="search-input" type="text" name="q" placeholder="Tìm kiếm..." required>
+        <button class="submit-btn" type="submit">🔍</button>
+      </form>
+    </div>
+    <div class="container">
+      <div class="view"></div>
+      <div class="information">
+        <h2>Pokémon Information</h2>
+        <ul>
+          <li><strong>Name:</strong> <span class="name"></span></li>
+          <li><strong>Height:</strong> <span class="height"></span></li>
+          <li><strong>Weight:</strong> <span class="weight"></span></li>
+          <li><img class="pokemon-img" src="" alt=""></li>
+        </ul>
+      </div>
+
+    </div>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
