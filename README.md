@@ -1,5 +1,22 @@
-# Vue 3 + Vite
+# 📱 Pokémon Web App
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 📝 Description
+Your task is to design and implement a web app that shows:
+- A list of Pokémon.
+- Detailed information of each Pokémon when clicked.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## 🌐 Resources
+- **Poke API**: [https://pokeapi.co](https://pokeapi.co) — Pokémon data API.
+- **Fetch API**: Fetching data using JavaScript.
+- **Demo pages**:
+  - [Từ điển Pokémon | Pokémon chính thức tại Việt Nam](https://www.pokemon.com/vn/pokedex/)
+
+## ✅ Requirements
+
+- 🔍 **Search Pokémon by name**
+- 🐢 **Use lazy fetching** to list Pokémon and load detail information
+- 📄 **Pagination feature** for the Pokémon list
+- 🎨 **Simple UI Design**
+- 🧯 **Error handling** for failed requests using `try/catch`
+- 💾 **Use Local Storage** to store the response and cache data
+
