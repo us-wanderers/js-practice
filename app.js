@@ -1,4 +1,7 @@
 let list_pokemons = []
+let filtered = []
+let current_display_list
+const number_of_pokemon_per_page = 20
 const view = document.querySelector('.view')
 document.querySelector('.submit-btn').addEventListener("click", find_pokemons)
 document.querySelector('.footer').addEventListener("click", switch_page)
@@ -17,14 +20,9 @@ async function get_all_pokemons() {
 async function init() {
     try {
         await get_all_pokemons()
-        const n_pokemons = list_pokemons.length
-        const n_pages = n_pokemons / 20
-        let html = ""
-        for (let i = 1; i <= n_pages; i++) {
-            html += `<div class="button" page_number="${i}">${i}</div>`
-        }
-        document.querySelector(".footer").innerHTML = html
-        generate_list(list_pokemons, 0)
+        current_display_list = list_pokemons;
+        make_pagination(current_display_list)
+        generate_list(current_display_list, 0)
     }
     catch (e) {
         alert("".join(e))
@@ -79,19 +77,34 @@ async function list_pokemon_information(event) {
     }
 }
 
+function make_pagination(pokemons) {
+    const n_pokemons = pokemons.length
+    const n_pages = n_pokemons / number_of_pokemon_per_page
+    let html = `<div class="button">Home</div>`
+    for (let i = 1; i <= n_pages; i++) {
+        html += `<div class="button" page_number="${i}">${i}</div>`
+    }
+    document.querySelector(".footer").innerHTML = html
+}
+
 function find_pokemons(event) {
     event.preventDefault();
     const name = document.querySelector(".search-input").value.toLowerCase();
-    const filtered = list_pokemons.filter(pokemon =>
+    filtered = list_pokemons.filter(pokemon =>
         pokemon.name.toLowerCase().includes(name)
     );
-    generate_list(filtered, 0)
+    current_display_list = filtered
+    make_pagination(current_display_list)
+    generate_list(current_display_list, 0)
 }
 
-function switch_page(event) {
+async function switch_page(event) {
     const target = event.target.closest('.button');
-    if (!target) return;
-    generate_list(list_pokemons, parseInt(target.innerHTML) - 1)
+    if (!target) return;    
+    if (target.innerHTML == "Home") {
+        init()
+    }
+    generate_list(current_display_list, parseInt(target.innerHTML) - 1)
 }   
 
 init()
