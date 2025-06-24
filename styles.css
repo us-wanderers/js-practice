@@ -108,3 +108,29 @@ body {
 .pokemon:hover {
     background-color: antiquewhite;
 }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+.footer .button {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #dcdcdc;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.footer .button:hover {
+  background-color: antiquewhite;
+}

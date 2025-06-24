@@ -1,26 +1,42 @@
 let list_pokemons = []
 const view = document.querySelector('.view')
-const search_btn = document.querySelector('.submit-btn')
-
+document.querySelector('.submit-btn').addEventListener("click", find_pokemons)
+document.querySelector('.footer').addEventListener("click", switch_page)
 view.addEventListener("click", list_pokemon_information)
-search_btn.addEventListener("click", find_pokemons)
 
-async function init() {
+async function get_all_pokemons() {
     try {
-        const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=20");
+        const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=200");
         const data = await res.json();
         list_pokemons = data.results;
-        await generate_list(list_pokemons);
     } catch (e) {
-        alert("" + e);
+        alert("".join(e));
     }
 }
 
-async function generate_list(list_pokemons) {
-    let html = "";
+async function init() {
+    try {
+        await get_all_pokemons()
+        const n_pokemons = list_pokemons.length
+        const n_pages = n_pokemons / 20
+        let html = ""
+        for (let i = 1; i <= n_pages; i++) {
+            html += `<div class="button" page_number="${i}">${i}</div>`
+        }
+        document.querySelector(".footer").innerHTML = html
+        generate_list(list_pokemons, 0)
+    }
+    catch (e) {
+        alert("".join(e))
+    }
+}
 
-    for (const pokemon of list_pokemons) {
+async function generate_list(list_pokemons, index) {
+    let html = "";
+    const start_index = index * 20
+    for (let i = start_index; i < start_index + 20; i++) {
         try {
+            const pokemon = list_pokemons[i];
             const res = await fetch(pokemon.url);
             if (!res.ok) continue;
 
@@ -69,6 +85,13 @@ function find_pokemons(event) {
     const filtered = list_pokemons.filter(pokemon =>
         pokemon.name.toLowerCase().includes(name)
     );
-    generate_list(filtered)
+    generate_list(filtered, 0)
 }
+
+function switch_page(event) {
+    const target = event.target.closest('.button');
+    if (!target) return;
+    generate_list(list_pokemons, parseInt(target.innerHTML) - 1)
+}   
+
 init()
